@@ -1,15 +1,15 @@
-import { Check, Code2, Network, ShieldCheck, Workflow } from 'lucide-react'
+import { Check, Code2, ShieldCheck } from 'lucide-react'
 import { certifications, type PageContent, type Segment } from '@/content/pages'
 import { Cta, Reveal } from './common'
 import { IntegrationDiagram } from './IntegrationDiagram'
+import { ServiceIllustration } from './ServiceIllustration'
 
 export function Problem({ page, segment }: { page: PageContent; segment: Segment }) {
   return <section className="section problem-section" id="operacao" aria-labelledby="problem-title"><div className="container"><Reveal className="problem-heading"><h2 id="problem-title">{page.problemTitle}</h2><p>{page.problemIntro}</p></Reveal><div className="problem-list">{page.problems.map(item => <div key={item.title}><span className="problem-mark" aria-hidden="true" /><h3>{item.title}</h3><p>{item.description}</p></div>)}</div><Reveal className="problem-bottom"><h3>{page.problemConclusion}</h3><div><p>{page.problemAbout}</p>{segment === 'logistica' && <p>Quando um colaborador precisa copiar informação do TMS para o ERP, conferir rastreamento em outra plataforma e atualizar o cliente manualmente, existe um gargalo claro. A tecnologia deveria fazer essa conexão. Desenvolvemos sistemas e integrações sob medida para reduzir retrabalho e centralizar informações.</p>}</div></Reveal></div></section>
 }
 
 export function Solutions({ page }: { page: PageContent }) {
-  const icons = { connect: Network, workflow: Workflow, develop: Code2 }
-  return <section className="section solutions-section" id="solucoes" aria-labelledby="solutions-title"><div className="container"><Reveal className="section-heading"><h2 id="solutions-title">O que podemos desenvolver.</h2><p>Uma solução construída a partir dos seus processos, regras e integrações.</p></Reveal><div className="solution-columns">{page.solutionGroups.map(group => { const Icon = icons[group.icon]; return <article key={group.title}><Icon size={31} strokeWidth={1.3} aria-hidden="true" /><h3>{group.title}</h3><p>{group.description}</p><ul>{group.items.map(index => <li key={page.solutions[index]}><Check size={16} aria-hidden="true" />{page.solutions[index]}</li>)}</ul></article> })}</div><div className="solutions-cta"><Cta>{page.cta}</Cta><p>Não começamos pelo sistema.<br />Começamos pelo que sua operação precisa.</p></div></div></section>
+  return <section className="section solutions-section" id="solucoes" aria-labelledby="solutions-title"><div className="container"><Reveal className="section-heading"><h2 id="solutions-title">O que podemos desenvolver.</h2><p>Uma solução construída a partir dos seus processos, regras e integrações.</p></Reveal><div className="solution-columns">{page.solutionGroups.map(group => { return <article key={group.title}><ServiceIllustration kind={group.icon} /><h3>{group.title}</h3><p>{group.description}</p><ul>{group.items.map(index => <li key={page.solutions[index]}><Check size={16} aria-hidden="true" />{page.solutions[index]}</li>)}</ul></article> })}</div><div className="solutions-cta"><Cta>{page.cta}</Cta><p>Não começamos pelo sistema.<br />Começamos pelo que sua operação precisa.</p></div></div></section>
 }
 
 export function Integration({ page, segment }: { page: PageContent; segment: Segment }) {

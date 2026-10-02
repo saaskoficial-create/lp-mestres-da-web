@@ -79,7 +79,7 @@ for (const segment of ['industria', 'logistica'] as const) {
   })
 }
 
-test('links entre LPs e animações com retorno de rolagem', async ({ page }) => {
+test('LPs independentes e animações com retorno de rolagem', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.goto('/industria/')
   await expect.poll(async () => page.locator('.hero-copy').evaluate(element => Number(getComputedStyle(element).opacity))).toBeGreaterThan(0.95)
@@ -92,7 +92,9 @@ test('links entre LPs e animações com retorno de rolagem', async ({ page }) =>
   await page.locator('#operacao').scrollIntoViewIfNeeded()
   await expect(page.locator('.problem-heading')).toHaveCSS('opacity', '1')
   await page.locator('#inicio').scrollIntoViewIfNeeded()
-  await page.locator('.segment-nav').getByRole('link', { name: 'Logística' }).click()
+  await expect(page.locator('a[href="/logistica/"]')).toHaveCount(0)
+  await page.goto('/logistica/')
+  await expect(page.locator('a[href="/industria/"]')).toHaveCount(0)
   await expect(page).toHaveURL(/\/logistica\/$/)
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(pageContent.logistica.headline)
 })

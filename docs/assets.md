@@ -18,4 +18,6 @@ Mais de 1.000 projetos e mais de uma década de mercado constam no briefing e na
 
 ## Fontes e componentes
 
-Space Grotesk e DM Sans pelo Fontsource; SIL Open Font License. Componentes shadcn/ui sob licença MIT, com Radix. A consulta ao 21st.dev foi apenas para referência de composição; o diagrama SVG e sua animação são implementação própria.
+Space Grotesk e DM Sans pelo Fontsource; SIL Open Font License. Componentes shadcn/ui sob licença MIT, com Radix. O Animated Beam de dillionverma/Magic UI foi obtido pelo MCP da 21st.dev (demo 919) e adaptado: uma única passagem, SVG responsivo, limpeza de observers e respeito a movimento reduzido. As três ilustrações de serviços são vetores próprios. A animação GSAP é carregada somente quando o diagrama entra na tela, com limpeza via gsap.context().
+
+A logo recebeu derivados de 334 e 502 px para srcset, mantendo o arquivo original e as cores.

@@ -1,6 +1,6 @@
 # Mestres da Web — LPs de Indústria e Logística
 
-Duas landing pages em React + TypeScript + Vite + Tailwind, com componentes reais shadcn/ui, Framer Motion e GSAP. Identidade escura em roxo e ciano; Space Grotesk e DM Sans locais; fotografias reais; diagrama conceitual de integração.
+Duas landing pages em React + TypeScript + Vite + Tailwind, com componentes reais shadcn/ui, Framer Motion e GSAP. Identidade com seções em roxo claro (#542176), roxo escuro (#250638), preto (#121212) e ciano; Space Grotesk e DM Sans locais; fotografias reais; diagrama conceitual de integração.
 
 ## Rodar
 
@@ -25,7 +25,7 @@ npm run preview
 
 No Windows, os testes também podem usar o Chrome instalado: `$env:PLAYWRIGHT_CHANNEL='chrome'; npm run test:e2e`.
 
-O build gera HTML próprio para `/industria/` e `/logistica/`, com título e descrição específicos de cada campanha. Não inclui a terceira copy, conforme instrução do usuário.
+As LPs não têm navegação de uma campanha para a outra. O build gera HTML completo próprio para `/industria/` e `/logistica/`, com título e descrição específicos de cada campanha. Não inclui a terceira copy, conforme instrução do usuário.
 
 ## Conteúdo e identidade
 
@@ -50,3 +50,15 @@ A configuração Vercel entrega `dist` e o endpoint serverless `/api/leads`; def
 ## Verificação
 
 CI `Quality`: instalação limpa, lint, testes do servidor, TypeScript, build e Playwright. As duas LPs são verificadas em 360, 390, 768 e 1440 px, com navegação mobile por teclado, CTAs, fontes, overflow, indisponibilidade, validação, envio em andamento, erro com retenção e confirmação após sucesso. Animações têm entrada, saída, retorno e respeito ao movimento reduzido.
+
+## SEO e performance
+
+O build pré-renderiza todo o conteúdo com React: títulos, textos, links e seções já estão no HTML, inclusive sem JavaScript. A hidratação mantém menus e formulários interativos. Metadados por página, dados estruturados Organization / Service / WebPage e robots.txt são gerados no build. Não são inventadas avaliações, preços ou URLs públicas.
+
+Configure `SITE_URL=https://seu-dominio.com.br` (somente a origem pública) no ambiente de build e execute `npm run build` para gerar canonical, URLs de compartilhamento e sitemap.xml. Sem domínio definido, esses endereços ficam ausentes. O webhook continua sendo uma variável separada e exclusiva do servidor.
+
+Fontes WOFF2 locais em subconjunto Latin com preload; imagens WebP com dimensões e srcset; imagens abaixo da dobra com lazy loading; stylesheet pequeno embutido no HTML para eliminar uma requisição bloqueante; JavaScript de hidratação com prioridade baixa; GSAP carregado somente perto da seção animada. A configuração Vercel prevê cache longo para assets com hash e nenhum cache para a API. As animações preservam o HTML visível antes da hidratação e respeitam movimento reduzido.
+
+Os testes Playwright usam o build de produção: execute `npm run build` antes de `npm run test:e2e`. Incluem conteúdo sem JavaScript, ausência de erros de hidratação, metadados e comportamento dos formulários.
+
+Resultados e condições das medições locais: [docs/performance.md](docs/performance.md).
