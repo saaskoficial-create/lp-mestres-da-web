@@ -2,6 +2,8 @@
 
 Duas landing pages em React + TypeScript + Vite + Tailwind, com componentes reais shadcn/ui, Framer Motion e GSAP. Identidade com seções em roxo claro (#542176), roxo escuro (#250638), preto (#121212) e ciano; Space Grotesk e DM Sans locais; fotografias reais; diagrama conceitual de integração.
 
+Repositório: [saaskoficial-create/lp-mestres-da-web](https://github.com/saaskoficial-create/lp-mestres-da-web). As duas campanhas ficam no mesmo projeto, com páginas e contêineres GTM independentes.
+
 ## Rodar
 
 Node.js 24 e npm:
@@ -45,7 +47,7 @@ Os testes de integração usam um webhook HTTP local; testes de interface usam r
 
 ## Hospedagem e rastreamento
 
-A configuração Vercel entrega `dist` e o endpoint serverless `/api/leads`; definir `LEAD_WEBHOOK_URL` no servidor. Hospedagem puramente estática precisa de uma API separada. Domínio, publicação em hospedagem e rastreamento deste cliente não foram configurados. O contêiner GTM da DELM não é reutilizado.
+A configuração Vercel entrega `dist` e o endpoint serverless `/api/leads`; definir `LEAD_WEBHOOK_URL` no servidor. Hospedagem puramente estática precisa de uma API separada. Domínio e publicação em hospedagem não foram configurados. Cada LP já contém seu próprio GTM, conforme a seção abaixo. O contêiner GTM da DELM não é reutilizado.
 
 ## Verificação
 
