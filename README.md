@@ -62,3 +62,12 @@ Fontes WOFF2 locais em subconjunto Latin com preload; imagens WebP com dimensõe
 Os testes Playwright usam o build de produção: execute `npm run build` antes de `npm run test:e2e`. Incluem conteúdo sem JavaScript, ausência de erros de hidratação, metadados e comportamento dos formulários.
 
 Resultados e condições das medições locais: [docs/performance.md](docs/performance.md).
+
+## Google Tag Manager por campanha
+
+- Indústria (`/industria/` e sua raiz): `GTM-TCZC9VKB`.
+- Logística (`/logistica/`): `GTM-NMJVVJF7`.
+
+O build grava um único container fixo em cada HTML. Script após o charset no início do head e iframe noscript imediatamente após abrir body. Em desenvolvimento, o script escolhe pela URL. Não existe troca de container ou navegação de uma campanha para a outra. A DELM permanece com seu GTM separado (`GTM-P8ZS3GSZ`). Containers validados em Chrome real: script HTTP 200 e carregamento em window.google_tag_manager. Eventos e tags devem ser configurados dentro de cada container.
+
+As aberturas foram refeitas como mastheads editoriais: headline em destaque, CTA e texto de apoio separados, fotografia panorâmica real e uma faixa de sistemas conectados. Sem screenshots ou resultados inventados.

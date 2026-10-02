@@ -18,6 +18,7 @@ try {
 const { render } = await server.ssrLoadModule('/src/entry-server.tsx')
 for (const [segment, page] of Object.entries(pageContent)) {
   const url = origin ? `${origin}/${segment}/` : ''
+  const gtm = segment === 'industria' ? 'GTM-TCZC9VKB' : 'GTM-NMJVVJF7'
   const graph = [
     { '@type': 'Organization', '@id': 'https://www.mestresdaweb.com.br/#organization', name: 'Mestres da Web', url: 'https://www.mestresdaweb.com.br/' },
     { '@type': 'Service', name: page.context, description: page.description, serviceType: 'Desenvolvimento de software sob medida e integrações', areaServed: { '@type': 'Country', name: 'Brasil' }, provider: { '@id': 'https://www.mestresdaweb.com.br/#organization' }, ...(url ? { url } : {}) },
@@ -26,6 +27,8 @@ for (const [segment, page] of Object.entries(pageContent)) {
   const schema = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replaceAll('<', '\\u003c')
   const seo = `<script type="application/ld+json">${schema}</script>` + (url ? `<link rel="canonical" href="${escape(url)}" /><meta property="og:url" content="${escape(url)}" /><meta property="og:image" content="${origin}/images/${page.image}-1400.webp" /><meta name="twitter:image" content="${origin}/images/${page.image}-1400.webp" />` : '')
   const html = template
+    .replace("location.pathname.replace(/\\/+$/,'')==='/logistica'?'GTM-NMJVVJF7':'GTM-TCZC9VKB'", `'${gtm}'`)
+    .replace('<!-- gtm-noscript -->', `<!-- Google Tag Manager (noscript) -->\n    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${gtm}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>\n    <!-- End Google Tag Manager (noscript) -->`)
     .replace(/<title>.*?<\/title>/, `<title>${escape(page.title)}</title>`)
     .replace(/(<meta name="description" content=")[^"]*("\s*\/>)/, `$1${escape(page.description)}$2`)
     .replace(/(<meta property="og:title" content=")[^"]*("\s*\/>)/, `$1${escape(page.title)}$2`)

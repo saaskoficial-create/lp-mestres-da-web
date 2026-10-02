@@ -10,6 +10,11 @@ for (const segment of ['industria', 'logistica'] as Segment[]) {
     expect(html).toContain('application/ld+json')
     expect(html).not.toContain('rel="stylesheet"')
     expect(html).not.toMatch(/rel="modulepreload"[^>]+gsap-vendor/)
+    const ownGtm = segment === 'industria' ? 'GTM-TCZC9VKB' : 'GTM-NMJVVJF7'
+    const otherGtm = segment === 'industria' ? 'GTM-NMJVVJF7' : 'GTM-TCZC9VKB'
+    expect(html.includes(ownGtm)).toBe(true)
+    expect(html.includes(otherGtm)).toBe(false)
+    expect(/<body>\s*<!-- Google Tag Manager \(noscript\) -->/.test(html)).toBe(true)
     const context = await browser.newContext({ javaScriptEnabled: false, baseURL, viewport: { width: 390, height: 900 } })
     const page = await context.newPage()
     await page.goto(`/${segment}/`)
@@ -38,3 +43,9 @@ for (const segment of ['industria', 'logistica'] as Segment[]) {
     expect(errors).toEqual([])
   })
 }
+
+test('root alias uses the Industry container', async ({ request }) => {
+  const html = await (await request.get('/')).text()
+  expect(html.includes('GTM-TCZC9VKB')).toBe(true)
+  expect(html.includes('GTM-NMJVVJF7')).toBe(false)
+})
